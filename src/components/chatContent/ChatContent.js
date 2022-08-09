@@ -21,6 +21,12 @@ const ChatContent = () => {
     
     const onStorageUpdate = () => {
       dispatch(getMessages())
+      
+      const currentUserId = JSON.parse(sessionStorage.getItem('currentUserId'))
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
+      if (!currentUserId || !currentUser){
+        window.location.reload()
+      }
     }
 
     window.addEventListener("storage", onStorageUpdate)
