@@ -1,5 +1,6 @@
 import React from 'react'
 import ChatList from "../chatList/ChatList"
+import "./chatBody.css";
 
 const ChatBody = () => {
   return (
