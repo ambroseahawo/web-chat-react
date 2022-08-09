@@ -19,7 +19,7 @@ function App() {
         sessionStorage.setItem('currentUser', JSON.stringify(username))
         setCurrentUser(JSON.parse(sessionStorage.getItem('currentUser')))
 
-        let uniqueId = 'id' + (new Date()).getTime();
+        const uniqueId = 'id' + (new Date()).getTime();
         sessionStorage.setItem('currentUserId', JSON.stringify(uniqueId))
       } else {
         alert("Username should be at least 3 characters and not exceed 10 characters!")
