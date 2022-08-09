@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Avatar from "../chatList/Avatar"
 import ChatItem from "./ChatItem"
 import "./chatContent.css";
@@ -6,6 +6,15 @@ import "./chatContent.css";
 const ChatContent = () => {
   const [chat, setChat] = useState([])
   const [message, setMessage] = useState("")
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() =>{
+    scrollToBottom()
+  })
 
   const onStateChange = (e) =>{
     setMessage(e.target.value)
@@ -62,6 +71,7 @@ const ChatContent = () => {
               />
             );
           })}
+          <div ref={ messagesEndRef } />
         </div>
       </div>
       <div className="content__footer">
