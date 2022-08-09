@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createMessage, getMessages } from "../../globalState/actions/chat";
 import Avatar from "../chatList/Avatar"
 import ChatItem from "./ChatItem"
 import "./chatContent.css";
 
 const ChatContent = () => {
-  const [chat, setChat] = useState([])
+  // const [chat, setChat] = useState([])
   const [message, setMessage] = useState("")
+
+  const chat = useSelector((state) => state.Chat)
   const messagesEndRef = useRef(null)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getMessages())
+  }, [dispatch])
 
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
@@ -27,7 +37,9 @@ const ChatContent = () => {
         sender: JSON.parse(sessionStorage.getItem('currentUser')),
         msg: message,
       }
-      setChat((prevChats) => [...prevChats, messageData])
+      // setChat((prevChats) => [...prevChats, messageData])
+      dispatch(createMessage(messageData))
+      dispatch(getMessages())
       setMessage('')
     }
   }
