@@ -14,6 +14,7 @@ const ChatContent = () => {
   const messagesEndRef = useRef(null)
   const dispatch = useDispatch()
   const currentUserId = JSON.parse(sessionStorage.getItem('currentUserId'))
+  const currentUserAvatar = JSON.parse(sessionStorage.getItem('currentUserAvatar'))
 
   useEffect(() => {
     dispatch(getMessages())
@@ -48,6 +49,7 @@ const ChatContent = () => {
         sender: JSON.parse(sessionStorage.getItem('currentUser')),
         senderId: currentUserId,
         msg: message,
+        image: currentUserAvatar
       }
       // setChat((prevChats) => [...prevChats, messageData])
       dispatch(createMessage(messageData))

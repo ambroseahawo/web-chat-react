@@ -1,4 +1,5 @@
 import React from "react";
+import Avatar from "../chatList/Avatar";
 
 const ChatItem = (props) => {
   return (
@@ -11,6 +12,7 @@ const ChatItem = (props) => {
         </div>
         <div className="chat__msg">{props.msg}</div>
       </div>
+      <Avatar isOnline="active" image={props.image} />
     </div>
   );
 }

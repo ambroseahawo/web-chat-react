@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import uniqueRandom from 'unique-random'
 import Nav from "./components/nav/Nav";
 import ChatBody from "./components/chatBody/ChatBody";
 import "./App.css";
@@ -7,6 +8,10 @@ import "./input.css";
 function App() {
   const [username, setUsername] = useState('')
   const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('currentUser')))
+  
+  const randomRange = uniqueRandom(1, 70)
+  const randomId = randomRange()
+  const uniqueAvatarUrl = `https://i.pravatar.cc/150?img=${ randomId}`
 
   const handleChange = (e) => {
     setUsername(e.target.value)
@@ -21,6 +26,7 @@ function App() {
 
         const uniqueId = 'id' + (new Date()).getTime();
         sessionStorage.setItem('currentUserId', JSON.stringify(uniqueId))
+        sessionStorage.setItem("currentUserAvatar", JSON.stringify(uniqueAvatarUrl))
       } else {
         alert("Username should be at least 3 characters and not exceed 10 characters!")
       }
