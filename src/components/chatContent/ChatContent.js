@@ -13,6 +13,7 @@ const ChatContent = () => {
   const chat = useSelector((state) => state.Chat)
   const messagesEndRef = useRef(null)
   const dispatch = useDispatch()
+  const currentUserId = JSON.parse(sessionStorage.getItem('currentUserId'))
 
   useEffect(() => {
     dispatch(getMessages())
@@ -45,6 +46,7 @@ const ChatContent = () => {
       const messageData = {
         key: 'id' + performance.now(),
         sender: JSON.parse(sessionStorage.getItem('currentUser')),
+        senderId: currentUserId,
         msg: message,
       }
       // setChat((prevChats) => [...prevChats, messageData])
@@ -87,7 +89,7 @@ const ChatContent = () => {
               <ChatItem
                 key={itm.key}
                 sender={itm.sender}
-                user="me"
+                user={itm.senderId === currentUserId ? "me" : "other"}
                 msg={itm.msg}
                 image={itm.image}
               />
