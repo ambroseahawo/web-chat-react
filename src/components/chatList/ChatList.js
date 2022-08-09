@@ -4,7 +4,7 @@ import ChatListItems from "./ChatListItem";
 
 const ChatList = () => {
 
-  const allChatUsers = [
+  const allChats = [
     {
       image: "https://c0.wallpaperflare.com/preview/500/556/924/doberman-dog-beauty-nature.jpg",
       id: 1,
@@ -23,7 +23,7 @@ const ChatList = () => {
         </button>
       </div>
       <div className="chatlist__items">
-        {allChatUsers.map((item, index) => {
+        {allChats.map((item, index) => {
           return (
             <ChatListItems
               name={item.name}
