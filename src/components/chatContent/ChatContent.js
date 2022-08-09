@@ -16,6 +16,16 @@ const ChatContent = () => {
 
   useEffect(() => {
     dispatch(getMessages())
+    
+    const onStorageUpdate = () => {
+      dispatch(getMessages())
+    }
+
+    window.addEventListener("storage", onStorageUpdate)
+
+    return () => {
+      window.removeEventListener("storage", onStorageUpdate)
+    }
   }, [dispatch])
 
   const scrollToBottom = () => {
