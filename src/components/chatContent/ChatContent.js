@@ -11,7 +11,7 @@ const ChatContent = () => {
     setMessage(e.target.value)
   }
 
-  const handleClick = () =>{
+  const handleSendMessage = () =>{
     if(message !== ""){
       const messageData = {
         key: 'id' + performance.now(),
@@ -20,6 +20,12 @@ const ChatContent = () => {
       }
       setChat((prevChats) => [...prevChats, messageData])
       setMessage('')
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if(e.key === 'Enter'){
+      handleSendMessage()
     }
   }
 
@@ -67,9 +73,10 @@ const ChatContent = () => {
             type="text"
             placeholder="Type a message here"
             onChange={onStateChange}
+            onKeyDown={handleKeyDown}
             value={message}
           />
-          <button className="btnSendMsg" id="sendMsgBtn" onClick={handleClick}>
+          <button className="btnSendMsg" id="sendMsgBtn" onClick={handleSendMessage}>
             <i className="fa fa-paper-plane"></i>
           </button>
         </div>
