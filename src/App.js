@@ -1,15 +1,57 @@
-import React from 'react'
-import Nav from './components/nav/Nav'
-import ChatBody from './components/chatBody/ChatBody'
-import "./App.css"
+import React, { useState } from "react";
+import Nav from "./components/nav/Nav";
+import ChatBody from "./components/chatBody/ChatBody";
+import "./App.css";
+import "./input.css";
 
-const App = () => {
+function App() {
+  const [username, setUsername] = useState('')
+  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('currentUser')))
+
+  const handleChange = (e) => {
+    setUsername(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (username) {
+      if (username.length > 2 && username.length < 11) {
+        sessionStorage.setItem('currentUser', JSON.stringify(username))
+        setCurrentUser(JSON.parse(sessionStorage.getItem('currentUser')))
+
+        let uniqueId = 'id' + (new Date()).getTime();
+        sessionStorage.setItem('currentUserId', JSON.stringify(uniqueId))
+      } else {
+        alert("Username should be at least 3 characters and not exceed 10 characters!")
+      }
+    }
+  }
+
   return (
-    <div className="__main">
-      <Nav />
-      <ChatBody />
-    </div>
-  )
+    <React.Fragment>
+      {
+        currentUser ? (
+          <div className="__main">
+            <Nav />
+            <ChatBody />
+          </div>
+        ) : (
+            <div className="subscribe-box">
+            <h2>Enter Username To Proceed</h2>
+              <form className="subscribe">
+              <input type="text" placeholder="e.g. Ambrose" onChange={handleChange}
+                value={username} autoComplete="off" required="required"
+              />
+              <button type="submit" onClick={handleSubmit}>
+                <span>Proceed</span>
+              </button>
+            </form>
+          </div>
+        )
+      }
+    </React.Fragment>
+
+  );
 }
 
-export default App
+export default App;
